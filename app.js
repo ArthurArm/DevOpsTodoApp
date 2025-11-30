@@ -77,6 +77,18 @@ async function getApp() {
 
   return false;
 }
+
+// Automatically start server when running app.js directly
+if (require.main === module) {
+  (async () => {
+    const app = await getApp();
+    const port = app.get("port");
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })();
+}
+
 module.exports = {
   getApp
 };
